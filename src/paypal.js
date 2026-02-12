@@ -1,6 +1,6 @@
 // paypal-module.js
 
-export function initPayPalButton(listaProductos,totalAmount,tax, containerId,limpiacb) {
+export function initPayPalButton(listaProductos,totalAmount,tax, containerId,limpiacb,sm) {
     //lista de productos (array de objetos con formato let selecprod={
     //   name:actualprod.name,
     //   unit_amount:{
@@ -60,14 +60,31 @@ export function initPayPalButton(listaProductos,totalAmount,tax, containerId,lim
                 // Aquí podrías disparar un evento personalizado o una función de éxito
                 console.log("Pago exitoso:", details);
                 //alert(`Gracias ${details.payer.name.given_name}, el pago fue aprobado.`);
+                localStorage.removeItem('pending_transaction');
                 limpiacb();
                 // Ejemplo: Redirigir a página de agradecimiento
                 //aqui se deberia ver como borrar el form, cerrar el modal, vaciar localstorage
+                let detailobj={
+                    orderid:details.id, 
+                    client:details.payer, 
+                    units:details.purchase_units
+                }
+                localStorage.setItem('lasttrans',JSON.stringify(detailobj))
                window.location.href = "/thanks.html";
             });
         },
+        onCancel: function (data) {
+                    sm({
+                        message: 'The payment was cancelled. Your items are still in the cart.',
+                        color: 'orange'
+                    });
+        },
         onError: function(err) {
             console.error("Error en el flujo de PayPal:", err);
+            sm({
+                message: 'There was a problem processing your payment. Please try again.',
+                color: 'red'
+            });
         }
     }).render(containerId);
 }

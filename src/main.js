@@ -1,7 +1,8 @@
 import { base } from "./base.js";
 import { initPayPalButton } from "./paypal.js";
 
-let $productcontainer=document.querySelector('.products');
+
+let $productcontainer=document.querySelector('.products__list');
 let $modalprods=document.querySelector('.modalpay');
 let $modalname=document.querySelector('.modalpay__h2');
 let $modalimage=document.querySelector('.modalpay__img');
@@ -10,6 +11,7 @@ let $modaltotal=document.querySelector('.modalpay__total');
 let $messageinfo=document.querySelector('.message');
 let $shoppingcart=document.querySelector('.shoppingcart');
 let $scdata=document.querySelector('.shoppingcart__data');  //donde se llena la info del carrito
+let $redpointcart=document.querySelector('.header__colorscicon');   //punto del cart cuando hay productos
 let $paybtn=document.getElementById('pay');
 let modalquantity=1;  //cantidad producto en modal
 let shoppingcart=[];  
@@ -50,6 +52,9 @@ const reviewshoppingcart=()=>{
 const actualizalocalstorage=(data)=>{
   let datastring=JSON.stringify(data)
   if (data.length === 0){
+    localStorage.removeItem('pending_transaction');   //aqui cambio reciente probar
+    document.getElementById('paypal-button-container').innerHTML='';  //cambio reciente probar
+    $redpointcart.classList.remove('header__colorscicon--show');
     limpiacarrito();
     return;
   }
@@ -76,7 +81,7 @@ const datosenmodal=(id)=>{
     $modalname.textContent=search.name;
     $modalimage.src=search.image
     $modalquantity.value=modalquantity;
-    $modaltotal.textContent=search.price;
+    $modaltotal.textContent=`$${search.price}`; //cambio
     
   }
 }
@@ -97,20 +102,20 @@ const llenaproductos=()=>{
               if(el.category === cat && el.status==='published'){
               let $figureprod=document.createElement('figure');
               $figureprod.classList.add('products__figure')
-              $figureprod.innerHTML=`<figure>
-                  <h3>${el.name}</h3>
+              $figureprod.innerHTML=`
+                  <h3 class="products__figtitle" >${el.name}</h3>
                   <img class="products__img" src=${el.image} alt=${el.name}>
-                  <figcaption>
-                    <span><b>Price:</b></span><span>${el.price}</span>
-                    </br>
-                    <button class="products__seemore">see more</button>
-                    <button data-id=${el.id} class="products__buy">Buy</button>
+                  <figcaption class="products__figcaption">
+                    <span><b>Price:</b></span><span>$${el.price}</span>
+                    </br></br>
+                    
+                    <button class="products__buy" data-id=${el.id} >Buy</button>
                   </figcaption>
-                </figure>`;
+                `;
                 fragmento.appendChild($figureprod)
               }
   })
-  $productcontainer.appendChild($h2prod)
+  //$productcontainer.appendChild($h2prod)
   $productcontainer.appendChild(fragmento)
   }
   
@@ -121,6 +126,9 @@ const limpiacarrito=()=>{
   $scdata.innerHTML='';
   localStorage.removeItem('mgchart');
   $shoppingcart.classList.remove('shoppingcart--show');
+  if($redpointcart.classList.contains('header__colorscicon--show')){
+    $redpointcart.classList.remove('header__colorscicon--show');
+  }
   total=0;
   tax=0;
   taxsub=0;
@@ -129,6 +137,34 @@ const limpiacarrito=()=>{
 
 document.addEventListener('DOMContentLoaded',()=>{
   llenaproductos();
+    if(localStorage.getItem('mgchart')){
+      if(!$redpointcart.classList.contains('header__colorscicon--show')){
+          $redpointcart.classList.add('header__colorscicon--show');
+      }
+    }
+  // Revisar si quedó una transacción en el aire
+    if (localStorage.getItem('pending_transaction')) {
+      showmessageinfo({ 
+        message: 'We noticed a pending payment attempt. Please check your email for a PayPal receipt before trying to pay again.', 
+        color: 'orange' 
+    });
+    
+    
+    setTimeout(() => {
+            let conf = confirm('Did you complete the payment? (Check your email for a PayPal receipt). \n\nClick OK to clear your cart, or Cancel to try paying again.');
+            
+            if (conf) {
+                localStorage.removeItem('pending_transaction');
+                limpiacarrito(); // Esto borra mgchart y limpia el HTML del carrito
+            } else {
+                // Si dice que NO, borramos solo el pendiente para que el mensaje 
+                // no vuelva a salir cada vez que recargue, pero dejamos el mgchart.
+                localStorage.removeItem('pending_transaction');
+                
+                
+            }
+    }, 500);
+  }
 })
 
 const loadshoppingcart=()=>{
@@ -159,9 +195,9 @@ const loadshoppingcart=()=>{
                   <tr>
                     <th>ITEM</th>
                     <th>PRICE</th>
-                    <th>QUANTITY</th>
+                    <th>QTY</th>
                     <th>PARTIAL</th>
-                    <th>ACTIONS</th>
+                    <th>DELETE</th>
                   </tr>
                 </thead>
                 <tbody class="sctbody">
@@ -180,14 +216,18 @@ const loadshoppingcart=()=>{
                 </tbody>
               </table>
 
-              <span><b>SUBTOTAL:</b></span>
+              <p><span><b>SUBTOTAL:</b></span>
               <span class="sctotal">$${sctotal.toFixed(2)}</span>
-              <br>
-              <span><b>TAX 15%:</b></span>
+              </p>
+              
+              <p><span><b>TAX 15%:</b></span>
               <span class="sctotal">$${taxsub.toFixed(2)}</span>  
-              <br>
+              </p>
+              
+              <p>
               <span><b>TOTAL:</b></span>
               <span class="sctotal">$${(sctotal + taxsub).toFixed(2)}</span>
+              </p>
   
   `;
   
@@ -209,7 +249,7 @@ document.addEventListener('click',(e)=>{
   if(e.target.matches('.products__buy')){
     //abre modal buy
    // console.log('modal')
-    $modalprods.classList.add('modalpay--show')
+    $modalprods.classList.add('modalpay--show');
     actualprod=base.find(el=>el.id === parseInt(e.target.dataset.id));
     datosenmodal(parseInt(e.target.dataset.id))
   }
@@ -250,7 +290,7 @@ document.addEventListener('click',(e)=>{
       quantity:$modalquantity.value
       //otra opcion no probada quantity:$modalquantity.value.toString()
     }
-    
+    $redpointcart.classList.add('header__colorscicon--show');
     reviewshoppingcart();
     //console.log('sc devuelto de reviews',shoppingcart)
 
@@ -294,6 +334,7 @@ document.addEventListener('click',(e)=>{
     let searched=loadinfo.filter(el=>parseInt(e.target.dataset.id) !== el.id)
     actualizalocalstorage(searched);
     loadshoppingcart();
+    document.getElementById('paypal-button-container').innerHTML='';
   }
 
   if (e.target.matches('#pay')){
@@ -307,9 +348,20 @@ document.addEventListener('click',(e)=>{
       showmessageinfo(messagesend);
       return;
     }
+
+     let datashopping=JSON.parse(localStorage.getItem('mgchart'))
+    // --- NUEVA LÓGICA: ESTADO PENDIENTE ---
+    const pendingOrder = {
+        items: datashopping,
+        total: total,
+        tax: tax,
+        timestamp: Date.now()
+    };
+    localStorage.setItem('pending_transaction', JSON.stringify(pendingOrder));
+    // --------------------------------------
     
-    let datashopping=JSON.parse(localStorage.getItem('mgchart'))
+   
     document.getElementById('paypal-button-container').innerHTML='';
-    initPayPalButton(datashopping,total,tax,'#paypal-button-container',limpiacarrito)
+    initPayPalButton(datashopping,total,tax,'#paypal-button-container',limpiacarrito,showmessageinfo)
   }
 })

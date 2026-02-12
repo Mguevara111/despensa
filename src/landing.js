@@ -1,7 +1,7 @@
 let $menumovil=document.querySelector('.menu__m')
 
 document.addEventListener('click',(e)=>{
-    console.log(e.target)
+    //console.log(e.target)
     if(e.target.matches('.header__menubtn') || e.target.matches('.header__menubtn > svg') || e.target.matches('.header__menubtn path')){
         $menumovil.classList.add('menu__m--show')
     }
