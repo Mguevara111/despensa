@@ -2,8 +2,21 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico?v=1">
+    <meta name="theme-color" content="#722F37">
+    <meta property="og:title" content="Virtual Market" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="%VITE_BASE_URL%" />
+    <meta property="og:description" content="Stand out with elegant snacks for all types of gatherings" />
+    <meta property="og:image" content="%VITE_BASE_URL%/images/logo.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Virtual Market" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Virtual Market" />
+    <meta name="twitter:description" content="Stand out with elegant snacks for all types of gatherings" />
+    <meta name="twitter:image" content="%VITE_BASE_URL%/images/logo.jpg" />
     <link rel="stylesheet" href="./src/style.css">
     <title>Virtual Market</title>
     <script src="https://www.paypal.com/sdk/js?client-id=Adx1RAeo3NV0VsGOS4COJCQXIGdQ9JASmleXHEN3DqbFyLH8taAZcHnQb5xvQbi944YZWdlxvJc0fhrk&currency=USD"></script>
@@ -24,6 +37,7 @@
           <!-- <a href="">ppppp</a> -->
         </nav>
         <div class="header__sccontainer">
+          <!-- /////////////no se toca clase//////////// -->
           <div class="header__colorscicon"></div>
           <svg class="header__gotoshopping-cart" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path class="header__gotoshopping-cart" d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"/></svg>
         </div>
@@ -31,6 +45,7 @@
 
 
       <!-- ***********************mensaje info*********************** -->
+       <!-- /////////////no se toca clase//////////// -->
       <section class="message"></section>
 
       <!-- ***************menu movil*********************** -->
@@ -85,12 +100,14 @@
 
         </section>
       
-        <!-- ************************products***************************** -->
+        <!-- ************************products***no se toca************************** -->
       <section class="products">
         <div class="products__title">
           <h2>Products</h2>
         </div>
-        <article class="products__list">
+
+        <!-- /////////////no se toca clase//////////// -->
+        <article class="products__list">    
 
         </article>
          
@@ -120,6 +137,7 @@
      
     </main>
     <!-- ***********modal producto********** -->
+     <!-- /////////////no se toca clase//////////// -->
       <aside class="modalpay">
         
         <section class="modalpay__content">
@@ -127,15 +145,19 @@
             <button class="closemodal">X</button>
           </div>
             <article class="modalpay__prod">
+                <!-- /////////////no se toca clase//////////// -->
                 <h3 class="modalpay__h2"></h3>
+                <!-- /////////////no se toca clase//////////// -->
                 <img class="modalpay__img" src="" alt="">
                 <p>Select Quantity</p>
+                <!-- /////////////no se toca clase//////////// -->
                 <input class="modalpay__inumber" type="number" min="1" disabled><br>
                 <section>
                   <button class="modalpay__p">+</button>
                   <button class="modalpay__m">-</button>
                 </section>
                 <p>Total:</p>
+                <!-- /////////////no se toca clase//////////// -->
                 <p class="modalpay__total"></p>
                 <button class="modalpay__addtocart">Add to cart</button>
                 
@@ -145,6 +167,7 @@
       </aside>
 
       <!-- **********modal shoping cart************ -->
+       <!-- /////////////no se toca clase//////////// -->
        <aside class="shoppingcart">
 
         <section class="shoppingcart__content">
@@ -153,6 +176,7 @@
                 <button class="shoppingcart__closebtn">X</button>
               </div>
               <h2 class="shoppingcart__title"></h2>
+              <!-- /////////////no se toca clase//////////// -->
               <article class="shoppingcart__data">
 
             
@@ -160,6 +184,7 @@
               </article>
               <button id="pay" class="pay__btn">Pay</button>
               <br>
+              <!-- /////////////no se toca id//////////// -->
               <div class="paypal__container" id="paypal-button-container"></div>
             </article>
         </section>
