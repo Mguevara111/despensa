@@ -64,14 +64,23 @@ export function initPayPalButton(listaProductos,totalAmount,tax, containerId,lim
                 limpiacb();
                 // Ejemplo: Redirigir a página de agradecimiento
                 //aqui se deberia ver como borrar el form, cerrar el modal, vaciar localstorage
+                const transactionId = details.purchase_units[0].payments.captures[0].id;
                 let detailobj={
-                    orderid:details.id, 
+                    orderid:transactionId, 
                     client:details.payer, 
                     units:details.purchase_units
                 }
                 localStorage.setItem('lasttrans',JSON.stringify(detailobj))
                window.location.href = "/thanks.html";
-            });
+            })
+            //*************prueba fondos insifucientes *********************************************************/
+            .catch(function(error) {
+        // AQUÍ es donde debería caer si el monto es 51.00
+                    console.error("Error detectado:", error);
+                    if (error.debug_id) {
+                    alert("Simulación de Fondos Insuficientes exitosa. Error: " + error.name);
+                    }
+    });
         },
         onCancel: function (data) {
                     sm({

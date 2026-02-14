@@ -1,0 +1,67 @@
+
+    html {
+  	box-sizing: border-box;
+	font-size:16px;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+:root{
+    --wine-color:#722F37;
+    --blood-color:#880808;
+    --gold-color:#D3AF37;
+}
+h1{
+    backdrop-filter: blur(1rem);
+    color: var(--gold-color);
+}
+.thanks__body{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('./images/cheese.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.thanks__returnbtn{
+    width: 150px;
+    height: 30px;
+    background-color: var(--wine-color);
+    
+    border: none;
+    border-radius: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.thanks__returnbtn > a{
+    text-decoration: none;
+     color: white;
+     cursor: pointer;
+}
+.thanks__buyinfo{
+    width: 300px;
+    height: auto;
+    text-align: center;
+}
+.cp,
+.thanks__buyinfo ul{
+    font-size: 1.4rem;
+    color: white;
+    backdrop-filter: blur(1rem);
+    padding: 1rem;
+}
+.thanks__buyinfo b{
+    background-color: var(--blood-color);
+}
+
+
