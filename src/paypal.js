@@ -1,15 +1,7 @@
 // paypal-module.js
 
 export function initPayPalButton(listaProductos,totalAmount,tax, containerId,limpiacb,sm) {
-    //lista de productos (array de objetos con formato let selecprod={
-    //   name:actualprod.name,
-    //   unit_amount:{
-    //           currency_code: "USD",
-    //           value: actualprod.price.toString()
-    //         },
-    //   quantity:$modalquantity.value
-    // })
-
+    
     //totalamoun es el total que se envia
     //containerId es el contenedor donde estaran los botones '#paypal-button-container'
 
@@ -59,10 +51,10 @@ export function initPayPalButton(listaProductos,totalAmount,tax, containerId,lim
             return actions.order.capture().then(function(details) {
                 // Aquí podrías disparar un evento personalizado o una función de éxito
                 console.log("Pago exitoso:", details);
-                //alert(`Gracias ${details.payer.name.given_name}, el pago fue aprobado.`);
+                
                 localStorage.removeItem('pending_transaction');
                 limpiacb();
-                // Ejemplo: Redirigir a página de agradecimiento
+                
                 //aqui se deberia ver como borrar el form, cerrar el modal, vaciar localstorage
                 const transactionId = details.purchase_units[0].payments.captures[0].id;
                 let detailobj={
@@ -73,26 +65,28 @@ export function initPayPalButton(listaProductos,totalAmount,tax, containerId,lim
                 localStorage.setItem('lasttrans',JSON.stringify(detailobj))
                window.location.href = "/thanks.html";
             })
-            //*************prueba fondos insifucientes *********************************************************/
+            
             .catch(function(error) {
-        // AQUÍ es donde debería caer si el monto es 51.00
-                    console.error("Error detectado:", error);
-                    if (error.debug_id) {
-                    alert("Simulación de Fondos Insuficientes exitosa. Error: " + error.name);
-                    }
-    });
+                    sm({ 
+                        message: 'Were sorry, there was a technical problem processing your payment. Please try again.', 
+                        color: 'red',
+                        time:5 
+                    });
+                });
         },
         onCancel: function (data) {
                     sm({
                         message: 'The payment was cancelled. Your items are still in the cart.',
-                        color: 'orange'
+                        color: 'orange',
+                        time:5
                     });
         },
         onError: function(err) {
             console.error("Error en el flujo de PayPal:", err);
             sm({
-                message: 'There was a problem processing your payment. Please try again.',
-                color: 'red'
+                message: 'The transaction was interrupted or could not be completed. Please verify your payment method or try again.',
+                color: 'red',
+                time:5
             });
         }
     }).render(containerId);

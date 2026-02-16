@@ -33,10 +33,11 @@ let fragmento=document.createDocumentFragment();
 const showmessageinfo=(messa)=>{
   $messageinfo.textContent=messa.message;
   $messageinfo.style.backgroundColor=messa.color;
+  let time=messa.time||3
   $messageinfo.classList.add('message--show');
   setTimeout(()=>{
     $messageinfo.classList.remove('message--show');
-  },3000)
+  },time*1000)
 }
 
 const reviewshoppingcart=()=>{
@@ -146,7 +147,8 @@ document.addEventListener('DOMContentLoaded',()=>{
     if (localStorage.getItem('pending_transaction')) {
       showmessageinfo({ 
         message: 'We noticed a pending payment attempt. Please check your email for a PayPal receipt before trying to pay again.', 
-        color: 'orange' 
+        color: 'orange',
+        time:3 
     });
     
     
@@ -238,7 +240,8 @@ const completeadd=()=>{
   $modalprods.classList.remove('modalpay--show')
     let messagesend={
       message:`Product ${actualprod.name} added to shopping cart`,
-      color:'green'
+      color:'green',
+      time:3
     }
     showmessageinfo(messagesend)
     limpiamodal();
@@ -342,13 +345,21 @@ document.addEventListener('click',(e)=>{
     if(!localStorage.getItem('mgchart')){
       //console.log('The shopping cart is emprty!, add a product first')
       let messagesend={
-      message:'The shopping cart is emprty!, add a product first',
-      color:'orange'
-    }
+        message:'The shopping cart is empty!, add a product first',
+        color:'orange',
+        time:3
+      }
       showmessageinfo(messagesend);
       return;
     }
 
+    let messagesend={
+        message:'Do not close this window until you are redirected back to the store to confirm your order.',
+        color:'orange',
+        time:4
+      }
+    showmessageinfo(messagesend);
+    
      let datashopping=JSON.parse(localStorage.getItem('mgchart'))
     // --- NUEVA LÓGICA: ESTADO PENDIENTE ---
     const pendingOrder = {

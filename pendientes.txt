@@ -1,19 +1,46 @@
 pruena fondos insuficientes
 
 
-Sugerencia de oro: En tu botón de PayPal, podrías añadir un pequeño texto debajo que diga: "No cierre esta ventana hasta que sea redirigido de vuelta a la tienda para confirmar su pedido".
+Sugerencia de oro: En tu botón de PayPal, podrías añadir un pequeño texto debajo que diga: 
+"No cierre esta ventana hasta que sea redirigido de vuelta a la tienda para confirmar su pedido".
 
 
 
 explorar y revisar esto:
-Si no quieres montar un servidor (Node.js, Python, etc.), te recomiendo usar Servicios Serverless (que son básicamente funciones sueltas en la nube):
+Si no quieres montar un servidor (Node.js, Python, etc.), te recomiendo usar Servicios Serverless 
+(que son básicamente funciones sueltas en la nube):
 
-Firebase (Google): Tiene "Cloud Functions" que pueden recibir el Webhook de PayPal y actualizar una base de datos real (Firestore).
+Firebase (Google): Tiene "Cloud Functions" que pueden recibir el Webhook de PayPal y 
+actualizar una base de datos real (Firestore).
 
 Netlify o Vercel Functions: Son gratis y muy fáciles de usar para esto.
 
 
-📘 Guía de Gestión de Pedidos para el Vendedor¡Felicidades! Has recibido un pago. Ahora, el centro de control para gestionar tus ventas no es tu página web, sino tu Panel de PayPal Business. Sigue estos pasos para procesar cada pedido:1. Notificación de VentaCada vez que alguien complete una compra, recibirás un correo electrónico de PayPal con el asunto: "Ha recibido un pago de...".Consejo: No te fíes solo del correo. Entra siempre a tu cuenta de PayPal para confirmar que el dinero está allí.2. Identificar el Pedido en el PanelEntra en paypal.com e inicia sesión con tu cuenta Business.Ve a la sección de Actividad (o Movimientos).Haz clic sobre la transacción reciente. Se abrirá el Detalle de la Transacción.3. ¿Qué datos debes buscar?Dentro del detalle verás dos cosas fundamentales:Datos del Comprador: Nombre y correo electrónico (esto aparece tanto si pagó con su cuenta PayPal como si usó Tarjeta de Crédito/Débito).Detalle del Carrito: Si el sistema está configurado con desgloses, verás exactamente qué productos compró (ej. 2 Botellas de Vino, 1 de Jerez).4. Procedimiento de Envío (El "Toque Humano")Como tu página es una landing page directa, el paso final es tuyo:Copia el correo del comprador que aparece en el detalle de PayPal.Escríbele un email de confirmación: > "Hola [Nombre del cliente], hemos recibido tu pago correctamente por las 2 botellas de vino. Estamos preparando tu envío y te avisaremos cuando salga de camino. ¡Gracias por tu compra!"Si necesitas la dirección de envío y el cliente no la puso en PayPal, este es el momento de pedírsela por ese mismo correo.Diferencias según el método de pagoSituaciónPago con Cuenta PayPalPago con Tarjeta (Sin cuenta)¿Dónde veo el dinero?En tu saldo de PayPal.En tu saldo de PayPal.¿Qué datos recibo?Nombre, correo y dirección guardada en su cuenta.Nombre y correo que el usuario escribió al pagar.¿Cómo lo contacto?Al correo asociado a su PayPal.Al correo que ingresó en el formulario de pago.⚠️ Notas de Seguridad para el DueñoEstado "Completado": Solo envía productos cuando el estado del pago sea "Completado". Si dice "Pendiente", espera a que PayPal confirme que el dinero ya es tuyo.Reembolsos: Si por alguna razón no tienes stock, puedes hacer clic en el botón "Reembolsar este pago" dentro del mismo detalle en PayPal. Es rápido y seguro para ambos.
+📘 Guía de Gestión de Pedidos para el Vendedor¡Felicidades! Has recibido un pago. 
+Ahora, el centro de control para gestionar tus ventas no es tu página web, sino tu 
+Panel de PayPal Business. Sigue estos pasos para procesar cada pedido:1. Notificación de 
+VentaCada vez que alguien complete una compra, recibirás un correo electrónico de PayPal con el asunto: 
+"Ha recibido un pago de...".Consejo: No te fíes solo del correo. Entra siempre a tu cuenta de 
+PayPal para confirmar que el dinero está allí.2. Identificar el Pedido en el PanelEntra en paypal.com
+ e inicia sesión con tu cuenta Business.Ve a la sección de Actividad (o Movimientos).Haz clic sobre 
+ la transacción reciente. Se abrirá el Detalle de la Transacción.3. ¿Qué datos debes buscar?Dentro 
+ del detalle verás dos cosas fundamentales:Datos del Comprador: Nombre y correo electrónico 
+ (esto aparece tanto si pagó con su cuenta PayPal como si usó Tarjeta de Crédito/Débito).Detalle del Carrito: 
+ Si el sistema está configurado con desgloses,
+  verás exactamente qué productos compró (ej. 2 Botellas de Vino, 1 de Jerez).4.
+   Procedimiento de Envío (El "Toque Humano")Como tu página es una landing page directa, el paso 
+   final es tuyo:Copia el correo del comprador que aparece en el detalle de PayPal.Escríbele un 
+   email de confirmación: > "Hola [Nombre del cliente], hemos recibido tu pago correctamente por 
+   las 2 botellas de vino. Estamos preparando tu envío y te avisaremos cuando salga de camino. 
+   ¡Gracias por tu compra!"Si necesitas la dirección de envío y el cliente no la puso en PayPal, 
+   este es el momento de pedírsela por ese mismo correo.Diferencias según el método de pagoSituaciónPago 
+   con Cuenta PayPalPago con Tarjeta (Sin cuenta)¿Dónde veo el dinero?En tu saldo de PayPal.En tu saldo 
+   de PayPal.¿Qué datos recibo?Nombre, correo y dirección guardada en su cuenta.Nombre y correo que el 
+   usuario escribió al pagar.¿Cómo lo contacto?Al correo asociado a su PayPal.Al correo que ingresó en 
+   el formulario de pago.⚠️ Notas de Seguridad para el DueñoEstado "Completado": Solo envía productos 
+   cuando el estado del pago sea "Completado". Si dice "Pendiente", espera a que PayPal confirme que el 
+   dinero ya es tuyo.Reembolsos: Si por alguna razón no tienes stock, puedes hacer clic en el botón 
+   "Reembolsar este pago" dentro del mismo detalle en PayPal. Es rápido y seguro para ambos.
 
 🛠️ Gestión de Problemas (Reembolsos y Disputas)
 A veces, un cliente puede pedir la devolución de su dinero o PayPal puede retener un pago. Aquí te explico cómo manejarlo sin pánico:
