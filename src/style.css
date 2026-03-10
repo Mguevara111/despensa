@@ -185,6 +185,7 @@ svg{
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 .hero__content{
     width: 100%;
@@ -233,6 +234,7 @@ svg{
     justify-content: start;
     align-items: center;
     margin-bottom: 2rem;
+    scroll-margin-top: 90px;
 }
 .experience__title{
     width: 100%;
@@ -314,6 +316,7 @@ svg{
     justify-content: center;
     align-items: center;
     margin-bottom: 2rem;
+    scroll-margin-top: 90px;
 }
 .products__title{
     width: 100%;
@@ -385,6 +388,7 @@ svg{
     justify-content: center;
     align-items: center;
     margin-bottom: 4rem;
+    scroll-margin-top: 90px;
 }
 .pairing__subtitle{
     width: 90%;
